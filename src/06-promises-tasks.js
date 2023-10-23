@@ -5,7 +5,6 @@
  *                                                                                                *
  ************************************************************************************************ */
 
-
 /**
  * Return Promise object that is resolved with string value === 'Hooray!!! She said "Yes"!',
  * if boolean value === true is passed, resolved with string value === 'Oh no, she said "No".',
@@ -39,7 +38,6 @@ function willYouMarryMe(isPositiveAnswer) {
     }
   });
 }
-
 
 /**
  * Return Promise object that should be resolved with array containing plain values.
@@ -100,8 +98,21 @@ function getFastestPromise(array) {
  *    });
  *
  */
-function chainPromises(/* array, action */) {
-  throw new Error('Not implemented');
+function chainPromises(array, action) {
+  const promise = new Promise((resolve) => {
+    const result = [];
+    let total = 0;
+    array.forEach((item, index) => {
+      Promise.resolve(item).then((res) => {
+        result[index] = res;
+        total += 1;
+        if (total >= array.length) {
+          resolve(result);
+        }
+      }).catch(() => {});
+    });
+  });
+  return promise.then((result) => result.reduce((a, b) => action(a, b)));
 }
 
 module.exports = {
