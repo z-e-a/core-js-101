@@ -98,8 +98,8 @@ function getFastestPromise(array) {
  *    });
  *
  */
-function chainPromises(array, action) {
-  const promise = new Promise((resolve) => {
+function chainPromises(/* array, action */) {
+/*   const promise = new Promise((resolve) => {
     const result = [];
     let total = 0;
     array.forEach((item, index) => {
@@ -113,6 +113,8 @@ function chainPromises(array, action) {
     });
   });
   return promise.then((result) => result.reduce((a, b) => action(a, b)));
+ */
+  throw new Error('Not implemented');
 }
 
 module.exports = {
